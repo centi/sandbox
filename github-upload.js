@@ -1,10 +1,48 @@
-var GitHubUpload = function(files, conf) {
-	
+var GitHubUpload = function(conf) {
+	this.conf = conf || {};
+	this._validate();
 };
 
 GitHubUpload.prototype = {
+	upload : function(files) {
+		var files = [].concat(files || []);
+		
+		if (files.length === 0) {
+			console.log("No files to upload.");
+		}
+		
+		for (var i = 0, l = files.length; i < l; i++) {
+			this.uploadFile(files[i]);
+		}
+	},
 	
+	uploadFile : function(file) {
+		console.log(file);
+	},
+	
+	_validate : function() {
+		if (!this.conf.token) {
+			console.log("GitHub token is missing!");
+		}
+		if (!this.conf.user) {
+			console.log("GitHub user is missing!");
+		}
+		if (!this.conf.repo) {
+			console.log("GitHub repo is missing!");
+		}
+	},
+	
+	_create : function() {
+		// create on github
+	},
+	
+	_save : function() {
+		// save to s3
+	}
 };
+
+exports.GitHubUpload = GitHubUpload;
+
 
 var fs = require("fs");
 var http = require("https");
