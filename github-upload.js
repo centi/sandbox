@@ -1,3 +1,11 @@
+var GitHubUpload = function(files, conf) {
+	
+};
+
+GitHubUpload.prototype = {
+	
+};
+
 var fs = require("fs");
 var http = require("https");
 var post = require("http-post");
@@ -66,7 +74,7 @@ function uploadDownload(responseData) {
 function uploadFinished(responseData) {
 	var parser = new xml2js.Parser();
 	parser.parseString(responseData.toString(), function(error, data) {
-		console.log(data);
+		conf.onUpload && conf.onUpload(data.PostResponse);
 	});
 }
 
